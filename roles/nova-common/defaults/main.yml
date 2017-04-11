@@ -20,6 +20,7 @@ nova:
       config_file: libvirt.conf
       defaults: /etc/sysconfig/libvirtd
       group: libvirt
+  nova_lib_dir: "/opt/openstack/current/nova"
   enable_fatal_deprecations: True
   patches:
   compute_driver: libvirt.LibvirtDriver

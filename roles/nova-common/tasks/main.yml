@@ -74,6 +74,26 @@
     mode: 0640
   when: inventory_hostname in groups['controller']
 
+- block:
+  - name: placement api apache config (ubuntu)
+    template: src=etc/apache2/sites-available/nova_placement_api.conf
+              dest=/etc/apache2/sites-available/nova_placement_api.conf
+    notify:
+      - reload apache
+
+  - name: enable placement api apache site
+    apache2_site: name=nova_placement_api state=present
+    notify:
+      - reload apache
+  when: ursula_os == 'ubuntu'
+
+- name: placement api apache config (rhel)
+  template: src=etc/httpd/conf.d/nova_placement_api.conf
+            dest=/etc/httpd/conf.d/nova_placement_api.conf
+  notify:
+    - reload apache
+  when: openstack_install_method == 'distro'
+
 - name: nova sudoer
   template: |
     src=etc/sudoers.d/nova

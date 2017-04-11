@@ -356,6 +356,9 @@ keystone:
     - name: aodh
       password: "{{ secrets.service_password }}"
       tenant: service
+    - name: placement
+      password: "{{ secrets.service_password }}"
+      tenant: service
   user_roles:
     - user: admin
       tenant: admin
@@ -411,6 +414,9 @@ keystone:
     - user: aodh
       tenant: service
       role: admin
+    - user: placement
+      role: admin
+      tenant: service
   services:
     - name: keystone
       type: identity
@@ -430,6 +436,12 @@ keystone:
       public_url: "{{ endpoints.nova.url.public }}/{{ endpoints.nova.url.path }}"
       internal_url: "{{ endpoints.nova.url.internal }}/{{ endpoints.nova.url.path }}"
       admin_url: "{{ endpoints.nova.url.admin }}/{{ endpoints.nova.url.path }}"
+    - name: nova_placement
+      type: placement
+      description: 'Placement Service'
+      public_url: "{{ endpoints.placement.url.public }}/{{ endpoints.placement.url.path }}"
+      internal_url: "{{ endpoints.placement.url.internal }}/{{ endpoints.placement.url.path }}"
+      admin_url: "{{ endpoints.placement.url.admin }}/{{ endpoints.placement.url.path }}"
     - name: glance
       type: image
       description: 'Image Service'
